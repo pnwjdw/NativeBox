@@ -1,0 +1,9 @@
+offreg.dll (Offline Registry Library) version 10.0.26100.6584, x64.
+Source: Windows Driver Kit 10.0.26100.6584, Redist\10.0.26100.0\offreg\x64\offreg.dll,
+obtained from the official Microsoft WDK media (Windows Content Versioned-x86_en-us.msi).
+Signed by Microsoft Corporation. Redistributed as Distributable Code under section 3(a)
+of the Windows Driver Kit license included as WDK-10.0.26100-license.rtf.
+The unmodified redistributable is included in this Windows-only application source
+bundle at third_party/offreg/x64/offreg.dll, with the same pinned SHA-256 as the
+installed dependency. It is a Microsoft binary dependency, not a NativeBox build
+output. Restoring it does not install or require the WDK or a kernel driver.

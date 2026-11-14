@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "tools": {
+    "vcRuntime": {
+      "name": "Microsoft Visual C++ v14 Redistributable x64",
+      "version": "14.51.36247.0",
+      "visualStudioRelativePath": "VC/Redist/MSVC/14.51.36231/vc_redist.x64.exe",
+      "sha256": "843068991daaa1f73ad9f6239bce4d0f6a07a51f18c37ea2a867e9beca71295c",
+      "page": "https://learn.microsoft.com/cpp/windows/redistributing-visual-cpp-files",
+      "source": "Installed Microsoft Visual Studio redistributable, verified Microsoft Authenticode; original download receipt unavailable",
+      "license": "Visual Studio Distributable Code terms"
+    },
+    "sevenZip": {
+      "name": "7-Zip standalone console (7zr)",
+      "version": "26.06",
+      "architecture": "x86",
+      "page": "https://www.7-zip.org/download.html",
+      "url": "https://github.com/ip7z/7zip/releases/download/26.06/7zr.exe",
+      "sha256": "e80db2dad715a6c5adabe292d31ed54e11f4e9b99ca349827b50573b175891bc",
+      "upstreamDigest": "sha256:e80db2dad715a6c5adabe292d31ed54e11f4e9b99ca349827b50573b175891bc (official GitHub release asset digest)",
+      "license": "Public domain (7zr standalone, as identified by its official binary; not the full 7-Zip package)",
+      "purpose": "Extracts the pinned Qt online-repository .7z archives at restore time; not shipped",
+      "publishedDigestUrl": "https://github.com/ip7z/7zip/releases/expanded_assets/26.06"
+    },
+    "wix": {
+      "name": "WiX Toolset",
+      "version": "5.0.2",
+      "page": "https://www.nuget.org/packages/wix/5.0.2",
+      "license": "MS-RL (5.0.2 ships without the Open Source Maintenance Fee EULA introduced in 6.x)",
+      "target": ".deps/wix-5.0.2",
+      "purpose": "Builds NativeBox.msi and the 1.exe Burn bundle; not shipped",
+      "requires": ".NET SDK 6 or later on the build machine",
+      "packages": [
+        {
+          "id": "wix",
+          "sha256": "f30ef0c74e2a986126539c5780be93ac24e8136eaf723b1937b26272703ae173"
+        },
+        {
+          "id": "wixtoolset.bal.wixext",
+          "sha256": "22422b50a925477e33c2b5f78d2965a9a09c6622d17ba5aa5365b20ec662b7c8",
+          "dll": "wixext5/WixToolset.BootstrapperApplications.wixext.dll"
+        },
+        {
+          "id": "wixtoolset.util.wixext",
+          "sha256": "dda1cc1b4d3b2305b1246f167c6af6fcded5000be84b3bbff3dda4f442bf4740",
+          "dll": "wixext5/WixToolset.Util.wixext.dll"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "detours": {
+      "name": "Microsoft Detours",
+      "version": "4.0.1",
+      "repository": "https://github.com/microsoft/Detours",
+      "url": "https://codeload.github.com/microsoft/Detours/zip/refs/tags/v4.0.1",
+      "archive": "Detours-v4.0.1.zip",
+      "archiveSha256": "5ab84eb08fb9befeb16ffd04ca283731b1e0e1e53b1947ce7868d4b9654e43fc",
+      "license": "MIT; exact upstream notice required before runtime distribution",
+      "status": "PINNED_OWNER_SUPPLIED_OFFICIAL_DOWNLOAD",
+      "purpose": "Required for linking instrumentation DLLs; API declaration compile checks are not a runtime",
+      "commit": "e4bfd6b03e50de46b47abfbd1e46b384f0c5f833",
+      "target": ".deps/detours-4.0.1-src",
+      "originEvidence": "Owner-provided archive; Zone.Identifier ReferrerUrl and HostUrl identify official microsoft/Detours v4.0.1 and codeload; ZIP comment records commit; no independent published archive digest claimed"
+    },
+    "offregUserMode": {
+      "name": "Microsoft Offline Registry Library",
+      "version": "10.0.26100.6584",
+      "architecture": "x64 broker only",
+      "target": ".deps/offreg/x64/offreg.dll",
+      "sha256": "453c52750a193fb250209b9928b04a70398a8de94c967df72e8bb03af47c1956",
+      "page": "https://learn.microsoft.com/windows-hardware/drivers/offline-registry/offline-registry-library",
+      "provenance": "Previously verified Microsoft-signed redistributable from official Microsoft media; user-mode DLL only",
+      "license": "licenses/microsoft/offreg-redistribution.txt",
+      "purpose": "Broker creates private hive files; no WDK is required to compile or run this code"
+    },
+    "qt": {
+      "name": "Qt for MSVC 2022 x64",
+      "version": "6.8.3-0-202503201308",
+      "architecture": "x64",
+      "page": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_683/qt6_683/",
+      "base": "https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_683/qt6_683/qt.qt6.683.win64_msvc2022_64",
+      "prefix": "6.8.3-0-202503201308",
+      "target": ".deps/qt-6.8.3",
+      "inventorySha256": "b0d5430881fff2e23e5da85cc04c325940f39e5e2e3af742cd33c309409989ab",
+      "archives": [
+        {
+          "name": "qtbase-Windows-Windows_11_23H2-MSVC2022-Windows-Windows_11_23H2-X86_64.7z",
+          "sha256": "41688269fac0565db956c66d9eecae777d16197e0c02cd81b88640c1f5d73d3f",
+          "upstreamSha1": "ab0bd2551618f7128ef30c6d74fe45b6a76e2296"
+        },
+        {
+          "name": "qtsvg-Windows-Windows_11_23H2-MSVC2022-Windows-Windows_11_23H2-X86_64.7z",
+          "sha256": "48d1d798894cbf8696a0010fcfdeafea652b35159c56ea2060ee85ce3d0048f7",
+          "upstreamSha1": "8031f1b59a1e8083a9397e081dd2f98f38a5ecbf"
+        },
+        {
+          "name": "qtdeclarative-Windows-Windows_11_23H2-MSVC2022-Windows-Windows_11_23H2-X86_64.7z",
+          "sha256": "c2f9f481bf6e8fb004530f20b820fbc77d4ee6dcca24d1ea1d1863d99c5dabf1",
+          "upstreamSha1": "4cdeb696118342453b8562d88e154a54ca336812"
+        },
+        {
+          "name": "qttools-Windows-Windows_11_23H2-MSVC2022-Windows-Windows_11_23H2-X86_64.7z",
+          "sha256": "76ac7b8c86ca72b6608f1d41ee848aeab19663536990b4968ce52db8ec980bc3",
+          "upstreamSha1": "25956e4f72a3b054235a2c6a00c88ba7e7927971"
+        },
+        {
+          "name": "qttranslations-Windows-Windows_11_23H2-MSVC2022-Windows-Windows_11_23H2-X86_64.7z",
+          "sha256": "c78fef2eff30b880e1aa9b049eff8a283431bc2d7e03132143279b5480d95418",
+          "upstreamSha1": "30199ad5c1325a28891f9f8a3f24908667b788f3"
+        },
+        {
+          "name": "d3dcompiler_47-x64.7z",
+          "sha256": "f886f3255600d46b3e651ab5cb8084b42df5e59f78993ad43d8b0cb3b70552c3",
+          "upstreamSha1": "ed4b767f545a10ffc77c55ae01f5ed06f0c8dae5"
+        },
+        {
+          "name": "opengl32sw-64-mesa_11_2_2-signed_sha256.7z",
+          "sha256": "b3e65312ca58e3ea3853eb5af7893a9fb26887b05bc6a1ccc706f88f9f971aeb",
+          "upstreamSha1": "1b8731f29b29d7e4becc0792334791c665961865"
+        }
+      ],
+      "license": "LGPL-3.0-only (Qt open source)"
+    },
+    "sqlitePlugin": {
+      "name": "NativeBox rebuilt Qt SQLite plugin",
+      "qtVersion": "6.8.3",
+      "sqliteVersion": "3.54.1",
+      "architecture": "x64",
+      "license": "Qt driver LGPL-3.0-only; SQLite public domain",
+      "purpose": "Replace SQLite 3.49.1 in qsqlite only; preserve pinned upstream Qt tree",
+      "defaultDefensive": true,
+      "qtSource": {
+        "url": "https://download.qt.io/archive/qt/6.8/6.8.3/submodules/qtbase-everywhere-src-6.8.3.tar.xz",
+        "archive": "qtbase-everywhere-src-6.8.3.tar.xz",
+        "sha256": "56001b905601bb9023d399f3ba780d7fa940f3e4861e496a7c490331f49e0b80"
+      },
+      "sqliteSource": {
+        "url": "https://www.sqlite.org/2026/sqlite-amalgamation-3540100.zip",
+        "archive": "sqlite-amalgamation-3540100.zip",
+        "sha256": "0a9c8e34352dad46006aa82836d5383bff9dc6bc9ce5a60553c05aa30e6ad1f9",
+        "sha3_256": "92281c86e2957f9b9305890f9ac04204caa7b677cc868dc326d942689df28e30",
+        "cSha3_256": "e2b869d3003b33c942b7dd7063604fbc53553e1b66609570df39b9b7b558ee81",
+        "publishedArchiveDigest": "https://www.sqlite.org/download.html",
+        "publishedCDigest": "https://www.sqlite.org/changes.html"
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="NativeBox" Manufacturer="NativeBox" Version="$(var.ProductVersion)"
+           UpgradeCode="2A8C755A-FD4F-4BDC-8270-271579ABC8AC" Scope="perMachine" Compressed="yes" InstallerVersion="500">
+    <SummaryInformation Description="NativeBox Driverless $(var.ProductVersion)" Manufacturer="NativeBox" />
+    <MajorUpgrade DowngradeErrorMessage="A newer NativeBox is already installed." Schedule="afterInstallInitialize" />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+    <Property Id="NATIVEBOX_WINDOWS_BUILD" Secure="yes">
+      <RegistrySearch Id="NativeBoxWindowsBuildSearch" Root="HKLM" Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+                      Name="CurrentBuildNumber" Type="raw" Bitness="always64" />
+    </Property>
+    <Launch Condition="Installed OR (VersionNT64 AND NATIVEBOX_WINDOWS_BUILD &gt;= 19041)"
+            Message="NativeBox requires 64-bit Windows 10 version 2004 or later." />
+    <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
+    <Property Id="REBOOT" Value="ReallySuppress" />
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="NativeBox" />
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder" />
+    <ComponentGroup Id="Payload" Directory="INSTALLFOLDER">
+      <Files Include="$(var.PackageDir)\**">
+        <Exclude Files="$(var.PackageDir)\nativebox.exe" />
+      </Files>
+    </ComponentGroup>
+    <Component Id="DesktopApplication" Directory="INSTALLFOLDER">
+      <File Id="DesktopExecutable" Source="$(var.PackageDir)\nativebox.exe" KeyPath="yes" />
+      <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="NativeBox" Description="NativeBox Driverless application profiles"
+                Target="[#DesktopExecutable]" WorkingDirectory="INSTALLFOLDER" />
+    </Component>
+    <Feature Id="Main" Title="NativeBox Driverless" Level="1">
+      <ComponentGroupRef Id="Payload" />
+      <ComponentRef Id="DesktopApplication" />
+    </Feature>
+  </Package>
+</Wix>

@@ -1,0 +1,4 @@
+LIBRARY nativebox_runtime32
+EXPORTS
+    DetourFinishHelperProcess @1 NONAME
+    NativeBoxLaunchW

@@ -1,0 +1,59 @@
+NativeBox Driverless library rebuilding information
+
+Candidate builds require independent qualification before release.
+NativeBox original code is MIT licensed:
+Copyright (c) 2026 yorenov / akegga. See NativeBox-MIT.txt.
+Third-party components retain their licenses. You may modify the libraries
+and reverse engineer the combined work to debug those modifications.
+
+The driverless build dynamically links Qt 6.8.3. Exact official archives,
+licenses and published digests are recorded in source-archives.json and
+dependencies.lock.json. A distributable package must provide the complete
+corresponding Qt source archives and the application's corresponding code
+and build inputs without additional charge. scripts/deploy-driverless.py
+stages the exact pinned archives and build recipes in licenses/corresponding-source.
+
+The Qt SQLite driver is rebuilt with SQLite 3.54.1, defensive mode and
+trusted-schema disabled by default. scripts/prepare-sqlite.py checks the
+source digests and applies the documented compile definitions. CMakeLists.txt
+contains the exact native CMake ExternalProject build recipe. ABI-compatible
+Qt DLLs and sqldrivers/qsqlite.dll may be replaced; NativeBox imposes no
+runtime publisher or hash restriction on those replacement libraries.
+
+Build from an MSVC-equipped Windows computer with Python 3 and pinned Qt:
+python -I -B scripts/build-driverless.py --configuration Release
+Use --offline --cache <verified-archive-directory> for an offline build.
+This builds the driverless GUI, same-user broker, CLI and both instrumented
+runtime DLLs. No WDK, Dokan,
+Guard, custom WFP callout or additional driver is restored or built.
+The licensed Microsoft offreg user-mode binary is bundled under third_party/offreg
+and checked against its pin during restore, so a WDK installation or previously
+populated offreg download cache is not required.
+USERMODE_REDIRECTED uses selected Win32 path APIs and private registry
+subtree seeds. APP_PROFILE is an explicit application adapter,
+not arbitrary filesystem or registry virtualization.
+
+Instrumentation implementation sources are under driverless/runtime. Linking uses
+the official Microsoft Detours 4.0.1 archive pinned in dependencies.lock.json.
+The source archive, commit and upstream MIT notice are verified during restore.
+To rebuild only the two runtime architecture DLLs after a full application build:
+python -I -B scripts/build-runtime.py --application-build out/release
+This command builds both architecture DLLs, preserves upstream MIT notices,
+checks immutable source inputs and produces runtime-artifacts.json.
+It is not functional qualification, installer lifecycle acceptance or a release.
+
+Deploy with scripts/deploy-driverless.py --build out/release --destination
+out/<new-staging-directory>. Package a candidate with scripts/package-driverless.py,
+an explicit deployment receipt and passed verification receipts for every staged byte.
+The pipeline uses the pinned WiX 5.0.2 and Microsoft x64 CRT redistributable.
+It preserves the existing NativeBox upgrade identity and does not install a new service
+or driver. An upgrade affecting legacy protected data requires a verified backup.
+For an independent build without the separate engineering acceptance suite, use
+--build-only to compile an explicitly unqualified installer candidate. It still
+rejects stale or altered staging. This mode supplies no functional verification
+and cannot qualify a release or replace the normal verification receipts.
+
+ManagedProxy supports selected blocking TCP/IPv4 Winsock calls. DNS is local;
+nonblocking, ConnectEx and UDP/QUIC are unsupported. Active IPv6 qualification is
+EXCLUDED_IPV6_BY_OWNER. Credentials use the current user's Windows Credential Manager.
+The runtime is a compatibility layer, not a security boundary against malicious code.

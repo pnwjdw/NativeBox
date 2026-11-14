@@ -1,0 +1,37 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal"
+     xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
+  <?define BundleLabel="NativeBox" ?>
+  <Bundle Name="$(var.BundleLabel) $(var.ProductVersion)" Manufacturer="NativeBox" Version="$(var.ProductVersion)"
+          UpgradeCode="F381A3E6-AC7C-4A03-8F41-C676E487B656" DisableModify="yes">
+    <BootstrapperApplication>
+      <bal:WixStandardBootstrapperApplication LicenseFile="$(var.WixDir)\license.rtf" Theme="rtfLicense"
+                                              SuppressOptionsUI="yes" ShowVersion="yes" />
+    </BootstrapperApplication>
+
+    <util:RegistrySearch Id="VcRuntimeInstalledSearch" Root="HKLM" Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                         Value="Installed" Variable="VcRuntimeInstalled" Bitness="always64" Result="value" />
+    <util:RegistrySearch Id="VcRuntimeBuildSearch" Root="HKLM" Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                         Value="Bld" Variable="VcRuntimeBuild" Bitness="always64" Result="value" />
+    <util:RegistrySearch Id="VcRuntimeMajorSearch" Root="HKLM" Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                         Value="Major" Variable="VcRuntimeMajor" Bitness="always64" Result="value" />
+    <util:RegistrySearch Id="VcRuntimeMinorSearch" Root="HKLM" Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                         Value="Minor" Variable="VcRuntimeMinor" Bitness="always64" Result="value" />
+    <util:RegistrySearch Id="VcRuntimeRevisionSearch" Root="HKLM" Key="SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64"
+                         Value="Rbld" Variable="VcRuntimeRevision" Bitness="always64" Result="value" />
+
+    <bal:Condition Message="NativeBox requires 64-bit Windows." Condition="VersionNT64" />
+    <bal:Condition Message="NativeBox requires Windows 10 version 2004 (build 19041) or later."
+                   Condition="VersionNT &gt;= v10.0 AND WindowsBuildNumber &gt;= 19041" />
+
+    <Chain>
+      <ExePackage Id="VcRuntime" DisplayName="Microsoft Visual C++ v14 Redistributable (x64)"
+                  SourceFile="$(var.VcRedist)" Permanent="yes" Vital="yes" PerMachine="yes"
+                  DetectCondition="VcRuntimeInstalled = 1 AND (VcRuntimeMajor &gt; $(var.VcRuntimeMajor) OR (VcRuntimeMajor = $(var.VcRuntimeMajor) AND (VcRuntimeMinor &gt; $(var.VcRuntimeMinor) OR (VcRuntimeMinor = $(var.VcRuntimeMinor) AND (VcRuntimeBuild &gt; $(var.VcRuntimeBuild) OR (VcRuntimeBuild = $(var.VcRuntimeBuild) AND VcRuntimeRevision &gt;= $(var.VcRuntimeRevision)))))))"
+                  InstallArguments="/install /quiet /norestart">
+        <ExitCode Value="1641" Behavior="error" />
+        <ExitCode Value="3010" Behavior="scheduleReboot" />
+      </ExePackage>
+      <MsiPackage Id="NativeBoxPackage" SourceFile="$(var.MsiPath)" Vital="yes" />
+    </Chain>
+  </Bundle>
+</Wix>

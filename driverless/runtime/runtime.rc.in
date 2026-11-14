@@ -1,0 +1,29 @@
+#include <windows.h>
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 0,2,0,0
+PRODUCTVERSION 0,2,0,0
+FILEFLAGSMASK 0x3fL
+FILEFLAGS 0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_DLL
+FILESUBTYPE 0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904b0"
+    BEGIN
+      VALUE "CompanyName", "yorenov / akegga\0"
+      VALUE "FileDescription", "NativeBox Driverless Runtime\0"
+      VALUE "FileVersion", "0.2.0\0"
+      VALUE "InternalName", "@NATIVEBOX_RUNTIME_NAME@\0"
+      VALUE "OriginalFilename", "@NATIVEBOX_RUNTIME_NAME@.dll\0"
+      VALUE "ProductName", "NativeBox\0"
+      VALUE "ProductVersion", "0.2.0\0"
+      VALUE "LegalCopyright", "Copyright (c) 2026 yorenov / akegga\0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1200
+  END
+END

@@ -1,0 +1,49 @@
+NativeBox third-party components
+
+NativeBox's original code, build scripts and resources are licensed under MIT.
+Copyright (c) 2026 yorenov / akegga. See NativeBox-MIT.txt.
+This grant does not relicense third-party code or its original notices. Library modification and reverse engineering for
+debugging such modifications are permitted; see library-rebuild.txt.
+
+Qt 6.8.3 (The Qt Company Ltd. and other contributors)
+  Modules: QtCore, QtGui, QtNetwork, QtSql, QtConcurrent, QtQml, QtQuick, QtQuickControls2,
+  QtQuickTemplates2 and their dependent runtime libraries, plugins and QML imports.
+  License: GNU Lesser General Public License v3.0 only (qt/LGPL-3.0-only.txt); some tools GPL-3.0 (qt/GPL-3.0-only.txt).
+  The libraries are dynamically linked and may be replaced by the user.
+  Corresponding source: https://download.qt.io/archive/qt/6.8/6.8.3/single/
+  Bundled third-party attribution metadata and original license text bytes are in
+  qt/third-party. Its provenance.json records the exact Qt 6.8.3 source archives,
+  upstream published SHA-256 digests and each reproduced legal input.
+  The statically linked Qt EntryPoint notice is in qt/entrypoint-notice.txt.
+
+Microsoft Visual C++ Redistributable 14.51
+  See microsoft/vc-runtime-redistribution.txt.
+
+Microsoft Offline Registry Library 10.0.26100.6584 (x64, user-mode DLL)
+  Used only by the optional instrumentation preparation path to create private hive files.
+  See microsoft/offreg-redistribution.txt and microsoft/WDK-10.0.26100-license.rtf.
+  The compiler and application launcher do not require a WDK installation.
+
+Microsoft Detours 4.0.1
+  Statically linked into the x64/x86 instrumentation DLLs from the pinned official v4.0.1 archive.
+  MIT license: microsoft/Detours-4.0.1-MIT.txt. The exact upstream copyright is preserved.
+  Origin, commit and archive digest are recorded in dependencies.lock.json and runtime-artifacts.json.
+
+SQLite 3.54.1 in the NativeBox-built Qt 6.8.3 SQLite driver
+  Replaces the SQLite 3.49.1 code present in the original upstream Qt plugin.
+  SQLite is public domain; Qt SQL driver source remains under its Qt LGPL terms.
+  Exact source URLs and published digests are in dependencies.lock.json.
+  Build recipe: scripts/prepare-sqlite.py and the native CMake ExternalProject recipe.
+  The upstream installed Qt SDK tree is not modified.
+  Local build enables SQLite defensive mode and disables trusted schema by default.
+
+A distributable package includes complete corresponding source archives and exact library modification/build recipes under licenses/corresponding-source. Candidate packaging does not certify installer or application qualification.
+See library-rebuild.txt and source-archives.json. The accompanying
+NativeBox-source.zip supplies the MIT-licensed Corresponding Application Code
+and build/install inputs for the LGPL section 4(d)(0) recombination route.
+Convey that source ZIP alongside the installer, without an additional charge.
+The self-contained runtime does not read or require that source ZIP to run.
+
+Qt translations 6.8.3 use the BSD-3-Clause option declared by their original
+binary SPDX document, preserved in qt/third-party/qttranslations. The complete
+Qt translations source archive and original notices are included as well.
